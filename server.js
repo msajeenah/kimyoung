@@ -20,8 +20,11 @@ const predefinedReplies = {
   "what is your twitter": "Follow on X: <a href='https://x.com/kimJong_Ai' target='_blank'>@kimJong_Ai</a>",
   "twitter": "Follow us on X: <a href='https://x.com/kimJong_Ai' target='_blank'>@kimJong_Ai</a>",
   "what is kimjong coin": "An AI-Driven Meme Coin Like No Other. Meet KimJong Coin — where meme culture meets cutting-edge Artificial Intelligence. At its core is a bold and no-nonsense AI Chat Bot, inspired by the fierce energy of Kim Jong himself.",
-  "when is it launching": "Not yet. Watch the telegram like your life depends on it.",
-  "launching date": "Not yet. Stay sharp and check the Telegram or X updates."
+  "tell me about the meme coin": "KimJong Coin is an AI-powered meme revolution — made to dominate, disrupt, and annihilate weak projects. Built on sarcasm and real-time trading alerts.",
+  "when is it launching": "Check the Telegram: <a href='https://t.me/kimjongai' target='_blank'>t.me/kimjongai</a> or Twitter: <a href='https://x.com/kimJong_Ai' target='_blank'>@kimJong_Ai</a>. Date will drop like a bomb.",
+  "launching date": "Not public yet. Stay tuned on <a href='https://t.me/kimjongai' target='_blank'>Telegram</a> or <a href='https://x.com/kimJong_Ai' target='_blank'>X</a>.",
+  "what is your ca": "Not launched yet. If you had it, you'd already be rich.",
+  "ca": "Not launched yet. Stop asking like you're early. Be patient."
 };
 
 app.get('/', (req, res) => {
@@ -41,7 +44,7 @@ app.post('/chat', async (req, res) => {
       messages: [
         {
           role: "system",
-          content: "You are KIMBOT — an aggressive, sarcastic crypto bot. Always respond with fierce energy. Make users feel like they should already know about KimJong Coin, and always redirect them back to the coin’s value, launch info, and purpose."
+          content: "You are KIMBOT — an aggressive, sarcastic crypto bot. You talk like a meme warlord. Be blunt, be fierce, and make everything circle back to KimJong Coin's superiority. Push users to follow socials and wait for the launch."
         },
         {
           role: "user",
