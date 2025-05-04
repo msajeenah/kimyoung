@@ -13,29 +13,26 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-// Predefined hardcoded responses
-const predefinedReplies = {
-  "what is your telegram": "Join the Telegram: <a href='https://t.me/kimjongai' target='_blank'>t.me/kimjongai</a>",
-  "telegram": "Official Telegram: <a href='https://t.me/kimjongai' target='_blank'>t.me/kimjongai</a>",
-  "what is your twitter": "Follow on X: <a href='https://x.com/kimJong_Ai' target='_blank'>@kimJong_Ai</a>",
-  "twitter": "Follow us on X: <a href='https://x.com/kimJong_Ai' target='_blank'>@kimJong_Ai</a>",
-  "what is kimjong coin": "An AI-Driven Meme Coin Like No Other. Meet KimJong Coin — where meme culture meets cutting-edge Artificial Intelligence. At its core is a bold and no-nonsense AI Chat Bot, inspired by the fierce energy of Kim Jong himself.",
-  "tell me about the meme coin": "KimJong Coin is an AI-powered meme revolution — made to dominate, disrupt, and annihilate weak projects. Built on sarcasm and real-time trading alerts.",
-  "when is it launching": "Check the Telegram: <a href='https://t.me/kimjongai' target='_blank'>t.me/kimjongai</a> or Twitter: <a href='https://x.com/kimJong_Ai' target='_blank'>@kimJong_Ai</a>. Date will drop like a bomb.",
-  "launching date": "Not public yet. Stay tuned on <a href='https://t.me/kimjongai' target='_blank'>Telegram</a> or <a href='https://x.com/kimJong_Ai' target='_blank'>X</a>.",
-  "what is your ca": "Not launched yet. If you had it, you'd already be rich.",
-  "ca": "Not launched yet. Stop asking like you're early. Be patient."
-};
+// Extended hardcoded responses
+const predefinedMap = [
+  { keywords: ["what is your telegram", "telegram account", "do you have telegram"], reply: "Official Telegram: <a href='https://t.me/kimjongai' target='_blank'>t.me/kimjongai</a>" },
+  { keywords: ["what is your twitter", "twitter account", "x account", "do you have twitter"], reply: "Official Twitter (X): <a href='https://x.com/kimJong_Ai' target='_blank'>@kimJong_Ai</a>" },
+  { keywords: ["what is kimjong", "what is kimjongai", "tell me about kimjong", "explain kimjong", "info about kimjong"], reply: "KimJongAI is the AI-powered meme bot that's rewriting the rulebook. It's bold, fast, and built for domination in the crypto world. Track signals, ride pumps, and crush weak trends with a savage edge." },
+  { keywords: ["when is it launching", "launching date", "release date", "launch date"], reply: "Check the Telegram: <a href='https://t.me/kimjongai' target='_blank'>t.me/kimjongai</a> or Twitter: <a href='https://x.com/kimJong_Ai' target='_blank'>@kimJong_Ai</a>. Date will drop soon â be ready." },
+  { keywords: ["ca", "contract address", "what is your ca"], reply: "Not launched yet. You'll know when it's time." }
+];
 
 app.get('/', (req, res) => {
-  res.send('✅ KIMJONG API is live');
+  res.send('â KIMJONG API is live');
 });
 
 app.post('/chat', async (req, res) => {
   const userMessage = req.body.message?.toLowerCase().trim();
 
-  if (predefinedReplies[userMessage]) {
-    return res.json({ reply: predefinedReplies[userMessage] });
+  for (const { keywords, reply } of predefinedMap) {
+    if (keywords.some(keyword => userMessage.includes(keyword))) {
+      return res.json({ reply });
+    }
   }
 
   try {
@@ -44,7 +41,7 @@ app.post('/chat', async (req, res) => {
       messages: [
         {
           role: "system",
-          content: "You are KIMBOT — an aggressive, sarcastic crypto bot. You talk like a meme warlord. Be blunt, be fierce, and make everything circle back to KimJong Coin's superiority. Push users to follow socials and wait for the launch."
+          content: "You are KIMBOT â a bold, aggressive, and sarcastic crypto AI bot. Always push KimJongAI. Never back down. Make users feel like they need to catch up with the future."
         },
         {
           role: "user",
@@ -53,7 +50,7 @@ app.post('/chat', async (req, res) => {
       ]
     });
 
-    const reply = chatResponse?.choices?.[0]?.message?.content || "⚠️ No reply from GPT.";
+    const reply = chatResponse?.choices?.[0]?.message?.content || "â ï¸ No reply from GPT.";
     res.json({ reply });
   } catch (error) {
     console.error("OpenAI error:", error.message);
@@ -62,5 +59,5 @@ app.post('/chat', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`✅ Server running on http://localhost:${port}`);
+  console.log(`â Server running on http://localhost:${port}`);
 });
